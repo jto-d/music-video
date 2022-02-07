@@ -11,7 +11,6 @@ soup = BeautifulSoup(page.content, 'html.parser')
 
 lyrics = soup.find_all('div', class_="col-xs-12 col-lg-8 text-center")
 lyrics = lyrics[0].find_all('div')[5].text
-print(lyrics)
 
 def convert(lst):
     return (lst[0].split())
@@ -29,6 +28,7 @@ for el in lst:
         signal = False
     elif ')' in el:
         signal=True
+
 
 
 print(final)
