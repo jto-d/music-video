@@ -2,7 +2,7 @@ import speech_recognition as sr
 import pyttsx3
 from os import path
 
-AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "poop.wav")
+AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "gettysburg10.wav")
 r = sr.Recognizer()
 
 
@@ -17,6 +17,6 @@ try:
 
         print(text)
 
-except:
-
+except Exception as e:
+    print(e)
     pass

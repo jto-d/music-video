@@ -7,10 +7,9 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import random
-import nltk
 # import pillow
 
-# check to see if the image link is a valid picture
+
 def checkLink(init_link, image_tags):
     index = random.randrange(0,20)
     
@@ -41,13 +40,12 @@ def getImage(query):
 
     request.urlretrieve(link, "image.jpg")
 
-    # open and display the image
     img = Image.open("image.jpg")
     time.sleep(1)
     img.close()
 
 
-# audio file to be read
+
 AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "gettysburg10.wav")
 r = sr.Recognizer()
 
@@ -55,46 +53,56 @@ r = sr.Recognizer()
 try:
 
     with sr.AudioFile(AUDIO_FILE) as source:
-        # filter out some background noise for a clearer transcription
         r.adjust_for_ambient_noise(source, duration=0.2)
-
-        # "listen" to the source audio
         audio = r.listen(source)
 
-        #use google api to transcribe audio in lowercase
         text = r.recognize_google(audio)
         text = text.lower()
 
-        # print transcribed audio
         print(text)
 
 except Exception as e:
     print(e)
     pass
-# split transcribed audio into a list with each word
+
 lst = text.split(' ')
 
-# filter out small words that won't have a good transcription
-
-# word checker
-nltk.download('averaged_perceptron_tagger')
-li = []
-
-# taking input text as India
-ans = nltk.pos_tag(lst)
-  
-# ans returns a list of tuple
-
-  
-# checking if it is a noun or not
-for word in ans:
-    val = word[1]
-    if(val == 'NN' or val == 'NNS' or val == 'NNPS' or val == 'NNP') or val == 'CD' or val == 'JJ':
-        li.append(word[0])
-
-
-
-for word in li:
+for word in lst:
     getImage(word)
 
+# getImage('banana')
 
+# def convert(lst):
+#     return (lst[0].split())
+
+# def get_lyrics():
+
+#     artist = input("Enter artist name (no spaces):")
+#     title = input("Enter song name (no spaces)")
+#     URL = "https://www.azlyrics.com/lyrics/" + artist + "/" + title + ".html"
+#     page = requests.get(URL)
+#     soup = BeautifulSoup(page.content, 'html.parser')
+
+#     lyrics = soup.find_all('div', class_="col-xs-12 col-lg-8 text-center")
+#     lyrics = lyrics[0].find_all('div')[5].text
+    
+#     # Driver code
+#     lst =  [lyrics]
+
+#     lst = convert(lst)
+#     signal = True
+#     final = []
+#     for el in lst:
+#         if '(' not in el and signal and '[' not in el:
+#             final.append(el)
+#         elif '(' in el and signal:
+#             signal = False
+#         elif ')' in el:
+#             signal=True
+#     return final
+
+# lst = get_lyrics()
+# print(lst)
+
+# for word in lst:
+#     getImage(word)
